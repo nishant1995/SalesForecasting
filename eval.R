@@ -22,12 +22,10 @@ wae <- tibble(
 
 # time-series CV
 for (t in 1:num_folds) {
-  # *** THIS IS YOUR PREDICTION FUNCTION ***
+  # *** THIS IS THE PREDICTION FUNCTION ***
   mypredict()
   
   # Load fold file 
-  # You should add this to your training data in the next call 
-  # to mypredict()
   fold_file <- paste0('fold_', t, '.csv')
   new_test <- readr::read_csv(fold_file)
   
@@ -42,7 +40,7 @@ for (t in 1:num_folds) {
   wae[t, ] <- colSums(weights * abs(actuals - preds)) / sum(weights)
 }
 
-# save results to a file for grading
+# save results to a csv file
 readr::write_csv(wae, 'Error.csv')
 
 
